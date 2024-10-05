@@ -13,8 +13,59 @@
 * JSON
  * <strong>Authentication: </strong>JSON Web Tokens(J-W-T)
 
-## Description
-_I am participating in the Concordia University Hackathon, which ends on October 2nd, 2024, on Devpost.com. This is my hackathon project: a Payment API designed for processing payments, built using a layered (3-tier) architecture_
+## IreneAPI - A Robust Payment Gateway API
+IreneAPI is a secure, scalable, and fully functional payment gateway API designed to streamline the processing of online payments. Built using C#, .NET 6, and MySQL, the API offers essential payment processing services while adhering to modern software development standards like JWT authentication, layered architecture, and robust security protocols. Inspired by industry-leading solutions like Stripe and PayStack, IreneAPI aims to provide a flexible and easy-to-integrate payment system for developers and businesses alike.
+
+* Key Features:
+<ol>
+<li>
+    Secure Payment Processing: IreneAPI provides essential payment functionalities, including card payments, transaction management, and payment authentication, with a focus on security and ease of use.
+</li>
+
+<li>
+    JWT Authentication: To ensure safe and authorized access, IreneAPI incorporates JSON Web Token (JWT) authentication, ensuring that all payment-related actions are restricted to authenticated users. Plans for implementing refresh tokens further enhance security by efficiently managing token expiration.
+</li>
+
+<li>
+    Layered Architecture: The API is structured using a 3-tier architecture (Presentation, Business, Data layers), making the system scalable, maintainable, and easy to extend.
+</li>
+
+<li>
+    Entity Framework Integration: Built with Entity Framework Core, the API uses MySQL for efficient database management and operations, providing seamless data handling and storage for payments and transactions.
+</li>
+
+<li>
+    RESTful API Design: IreneAPI follows RESTful principles, offering standardized and predictable endpoints for integration with other applications. The API is also easy to consume for web and mobile clients.
+</li>
+
+<li>
+    Robust Error Handling: Designed with fault tolerance in mind, IreneAPI gracefully handles errors, ensuring that failures do not compromise the overall system functionality.
+</li>
+
+<li>
+    Hackathon-Driven Development: Originally developed as part of the Concordia University Hackathon, the project aims to balance speed and innovation with strong architectural principles, providing a complex and reliable payment solution.
+</li>
+</ol>
+* Tech Stack:
+1. Languages/Frameworks: C#, .NET 6, ASP.NET Core
+2. Database: MySQL with Pomelo.EntityFrameworkCore.MySql
+3. Authentication: Microsoft.AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt
+4. Design Pattern: 3-Tier Architecture
+5. Tools: GitHub for version control, Visual Studio Code (VSCode), Git Bash for terminal operations
+
+* Planned Features:
+1. Real-time Transaction Monitoring: Implementation of real-time updates and notifications for successful or failed transactions.
+2. Extended User Roles and Permissions: To enhance system security, IreneAPI plans to integrate custom user roles with permissions tailored for different levels of access (e.g., Admin, Merchant, Customer).
+3. Mobile Integration: Future versions will focus on seamless mobile integration, providing SDKs for iOS and Android platforms to extend its reach beyond web-based applications.
+
+* Use Cases:
+1. Small to medium-sized businesses looking for a customizable payment gateway solution.
+2. Developers seeking a reliable API for integrating payment functionalities into their web or mobile applications.
+3. FinTech startups in need of a scalable, secure, and easy-to-use payment processing engine.
+4. IreneAPI is continually evolving, with a focus on providing developers with the tools they need to 
+5. implement secure and efficient payment systems. Whether you're building an e-commerce platform or a subscription-based service, IreneAPI can power your transactions with minimal effort and maximum security.
+
+_This version highlights the technical aspects, security features, and future enhancements while making it clear how developers and businesses can benefit from integrating IreneAPI into their systems._
 
 ## Project Architecture
 The project follows a **Layered (3-tier) Architecture** pattern, which facilitates separation of concerns and improves scalability. The main components of the project are described below:
