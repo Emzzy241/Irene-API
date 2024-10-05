@@ -1,4 +1,5 @@
 using IreneAPI.Services;
+using IreneAPI.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using IreneAPI.Models;
@@ -173,29 +174,6 @@ public class AuthController : ControllerBase
         return Ok("This data is only accessible by admins");
     }
 
-}
-
-
-public class LoginRequest
-{
-    public string UserNameOrEmail { get; set; }
-    public string Password { get; set; }
-}
-
-
-public class RegisterRequest
-{
-    public string UserName { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }    
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-}
-
-public class RoleAssignmentRequest
-{   
-    public string RoleName { get; set; }
-    public string UserId { get; set; }   
 }
 
 
