@@ -46,6 +46,7 @@ IreneAPI is a secure, scalable, and fully functional payment gateway API designe
     Hackathon-Driven Development: Originally developed as part of the Concordia University Hackathon, the project aims to balance speed and innovation with strong architectural principles, providing a complex and reliable payment solution.
 </li>
 </ol>
+
 * Tech Stack:
 1. Languages/Frameworks: C#, .NET 6, ASP.NET Core
 2. Database: MySQL with Pomelo.EntityFrameworkCore.MySql
