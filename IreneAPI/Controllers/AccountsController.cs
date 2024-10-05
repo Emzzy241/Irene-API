@@ -1,5 +1,6 @@
 using IreneAPI.Services;
 using IreneAPI.DTOs;
+using IreneAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using IreneAPI.Models;
@@ -42,17 +43,7 @@ public class AccountsController : ControllerBase
         var result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
-            // Check if this is the first user
-
-            // if (!_userManager.Users.Any())
-            // {
-            //     await _userManager.AddToRoleAsync(user, "Admin"); // First user is admin
-            // }
-            // else{
-            //     // Assign User role to all users by default after registration
-            //     await _userManager.AddToRoleAsync(user, "User"); // All other users get the User role by default
-            // }
-
+           
                 // Assign User role to all users by default after registration
                 await _userManager.AddToRoleAsync(user, "User"); // All other users get the User role by default
                 // I can now manually edit it myself and make a user an admin, then use the nre admin to assign more user roles
@@ -91,7 +82,7 @@ public class AccountsController : ControllerBase
 
         // A Find User logic
         // Check if the input is a valid email or username
-        if(IsValidEmail(model.UserNameOrEmail))
+        if(ValidEmailHelper.IsValidEmail(model.UserNameOrEmail))
         {
             // Find user by email 
             user = await _userManager.FindByEmailAsync(model.UserNameOrEmail);
@@ -120,21 +111,6 @@ public class AccountsController : ControllerBase
         var token = _tokenService.GenerateToken(user.Id, roles.FirstOrDefault() ?? "User");
 
         return Ok(new { Token = token});
-    }
-
-    // Helper functions to validate if the input is an email
-    private bool IsValidEmail(string input)
-    {
-        try
-        {
-            // using the System.Net.Mail.MailAssress class to validate if the string is an email
-            var email = new System.Net.Mail.MailAddress(input);
-            return email.Address == input;
-        }
-        catch
-        {
-             return false;
-        }
     }
 
     // Testing out the roles
@@ -175,70 +151,3 @@ public class AccountsController : ControllerBase
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.IdentityModel.Tokens;
-// using System.IdentityModel.Tokens.Jwt;
-// using System.Text;
-
-// namespace IreneAPI.Controllers;
-//     [Route("api/[controller]")]
-//     [ApiController]
-//     public class LoginController : ControllerBase
-//     {
-//         private IConfiguration _config;
-//         public LoginController(IConfiguration config) 
-//         {
-//             _config = config;
-//         }
-
-//         [HttpPost]
-//         public IActionResult Post([FromBody] LoginRequest loginRequest)
-//         {
-//             //your logic for login process
-//             //If login username and password are correct then proceed to generate token
-
-//             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtSettings:SecretKey"]));
-//             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-//             var Sectoken = new JwtSecurityToken(_config["JwtSettings:Issuer"],
-//               _config["JwtSettings:Issuer"],
-//               null,
-//               expires: DateTime.Now.AddMinutes(120),
-//               signingCredentials: credentials);
-
-//             var token =  new JwtSecurityTokenHandler().WriteToken(Sectoken);
-
-//             return Ok(token);
-//         }
-//     }
-
-
