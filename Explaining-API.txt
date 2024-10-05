@@ -1,0 +1,112 @@
+WHAT IS AN API?
+
+API stands for Application Programming Interface and it is a way for 2 Applications to talk to each other
+Applications in the context of Api means a software that performs a specific task.
+
+API serves as an intermediary which helps in facilitating the communication between 2 applications. 
+With APIs we can incorporate a numerous amount of feature into our app. 
+I will be giving some examples based on some of the projects I have built.
+
+While I initially started learning about API with Javascript and Promises, I thought of API as a way to make my app carry out a numerous amount of tasks
+I built YayCryptoStock; A Website where people can get the live prices of a cryptocurrency, I worked with the coingecko Api which helped me in getting live prices to bitcoin, ethereum, etc.
+
+Lets look at a webapp like NASA. NASA is a very large company and it has a lot of data about asteroids, and planets. There are two ways in which we can access this data, 
+We can either got to NASA's official Website through our browser and click on multiple buttons or links and get the data about asteroids or we can write a new app that consumes the NASA Api and we can also get all the NASA data that we need.
+When we visit NASA's official website and click on links/buttons, we are accessing the NASA data through a User Interface
+When we build our own app that consumes the NASA Api, we are doing that same task with an Api
+
+
+Diving deeper into the Api way, looking closely we find out that there are 2 applications; one is our app and the other is NASA's app
+with an Api we are now able to ensure the app we built can talk to the NASA app.
+
+API can also be seen as a set of protocols that lets different pieces of software communicate with each other and share data.
+Think of an APi as a restaurant setting; customer is the client(e.g a mobile app, CretaceousClient), the API is a waiter(CretaceousAPI), and kitchen is the API server.
+When a customer places their order they are making an API request, the waiter(API) takes the customer's order and gives it to the kitchen(API server), The kitchen makes the customers food according to their instructions and hands it to the waiter who delivers it back to the customer
+What waiter delivers to a customer is an API response. By design, the customer is able to get what they need from the kitchen by talking to the waiter(Api), they don't have to go to the kitchen to check the cooking utensils, talk to the chefs at all in order to know what food is available, they only communicate with the API
+Different types of APIs; REST, Soap, GrapQL, gRPC, MQTT, etc; and each one could be a great piece for different types of application. The differences between these architectural styles and protocols are in the ways requests are made and handled
+E.g; REST APIs use HTTP Verb to create and retrieve resources, like our waiter running back and forth between the kitchen and the hungry customer
+gRPC uses the newer HTTP2 web protocol and can handle larger volumes of complex data very well, think of it like a catering service compared to a restaurant
+
+In the end its still all about getting food from the kitchen to a hungry customer and an API offers the path to make it happen.
+
+Uses of APIs;
+Developers use APIs to add features and functionalities to their application without having to rewrite code that can be found elsewhere.
+E.g: If you want users to be able to translate texts within your app, it is probably not reasonable to include a multi-language dictionary within your application
+You can easily have the app call the Google Translate API to seamlessly provide this service to your users. This same idea applies to accept a payment or sharing a facebook post on social media or using location services
+All of this challenges like: Translation & language services, payment processing, social media integration, maps $ location services, and more... And you can save time and money  by leveraging an existing api to handle this functions for you in your app.
+With APIs there is no limit to what ypu can create
+
+
+
+I think where I got it wrong was thinking that WebAPIs were the same thing as an app, but really they are not, they are only a way for 2 applications to talk to each other
+I even thought, I would no longer have to consume APIs but be building them now, I mean, I saw the words: Building An API and I thought my days of consuming api were over but actually I was wrong. 
+Building APIs/ Building WebAPIs actually means that you have a stand alone application which is going to be the server, and then an API will only help my server app communicate with another client app this client app can be mine or for another person
+Lets say I did a research on Fraudulent transfers in the past 6 month and then I published this into an application(more specifically, a server), I can create an api that will help other developers in incorporating this feature into their own apps(client)
+The Fraudulent transfers app is essentially the server and the API I build unto it is a way for other app's(clients) to communicate with this server
+
+
+
+Why we build an API?
+Taking a look at the NASA example that was recently given, NASA has a lot of data that its employees have compiled together, if I wanted this data in my app, it will be an unwise thing to hire out staffs to redo this research, and I will spend loads of time and money.
+But with the NASA api, I can easily choose what api data I want from NASA and incorporate them into my app.
+
+2. A Developer can build a social media app that skyrockets and gets a lot of users, but this developer might not be making any money from this app, a good way a developer might explore to monetize his app
+is by building an API unto the app's server. The api will allow other apps to have access to the app's server and they can perform quite a number of actions on it.
+E.g if it were to be a RESTful API, other apps can get the details about some of the most active users, what content they like the most, and other useful data. essentially, APIs create a way for devs to monetize what they have built.
+
+
+After understanding the basics of API, I hope you don't mind if I try answering the questions you asked me earlier
+
+The first thing you pinpointed was that the URIs were not really following the definitions, you have made notable points and I will work on that.
+Let me now try to show you how much I understand the question now.
+
+A URI is a uniform resource Identifiers and they help us in differentiating different types of data resources on a server.
+Let me explain it this way:
+http://www.google.com/definitions/uri 
+
+The entire thing above is a URI and to be more specific it is a specific type of URI known as a URL; a uniform resource locator
+URL provides the location of a webpage. A URL includes information about how an application should interact with it.
+
+Back to explaining URIs; all URIs use a standard formatting structure.
+Each URI starts with by listing a scheme, which indicates what protocol an app should use to access the resource(in the case of REST, we only use the HTTP protocol, hence the scheme becomes an HttPVerb)
+e.g: a URI that states http or https opens on a web browser, while one that starts with a mailto creates a new message in an email client.
+
+Next feature of URI is the authority component describing the resources host by its domain name or IP Address, it may also include username, password, and port number
+Next is a path that locates the resource on the host within its folder structure
+Lastly a URI may contain query parameters(used to specify additional information) that pass information into a webpage or a fragment that jumps into a section on a webpage
+
+Explaining URIs in the context of RESTful APIs;
+Api architecture and how they work are usually explained in terms of client and server.
+THe application sending a request is a client 
+The application sending a response is a server.
+
+For a client to send a request, it sends a request message: and a request message has 3 parts:
+1. URIs; this is the start line which contains the URI you wish to access. URI is preceeded by an HttPVerb(aka a request method). we use the HttPVerb to specify what we intend to do with the resource(or data entity)
+2. Headers; Contains metadata about our request
+3. Body;  This also contains data.
+
+Now answering the question about what I think is the purpose of a URI
+Uses/Purpose of a URI: URIs are mostly used in a request message to:
+1. Specify what protocol an app should use to access a resource(or data entity)
+2. Specify the location of our entity's data
+3. Describe a resource's host by its domain name or IP Address.
+
+We may choose to include query parameters in our URIs that pass additional information onto a server; A great example from my code is when I did:
+[HttpGet("id")]; I told the server to get me an entity with an Id that I will be passing into the request message
+
+
+I hope I have been able to answer your question now.
+
+Moving on to your next question:
+For instance if I do:
+[HttpPost()]
+public async Animal PostAnimal(Animal animal)... What is the problem?
+
+The first line is a URI that specifies the protocol(HTTP), it also tells the database server our intent to the resource
+and that intent is to make create a new entity in our database server
+The next line is an asynchronous method that is actually helping us in creating a new Animal entity on our database server
+
+You are absolutely correct about it not containing a documentation
+From the HttPVerb we clearly indicated that we wanted to create a new animal, a simple method name like CreateAnimal(Animal animal) would have been the ideal way to go.
+
+You raised another point there by saying it is good practice to return an ActionResult and not the object directly, propagating a cancellationToken? I will also look into that
