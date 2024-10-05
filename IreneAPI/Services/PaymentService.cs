@@ -13,29 +13,29 @@ public class PaymentService : IPaymentService
         _paymentRepository = paymentRepository;
     }
 
-    public Task<List<Payment>> GetPayments()
+    public Task<List<Payment>> GetAllPaymentsAsync()
     {
-        return _paymentRepository.GetAllPayments();
+        return _paymentRepository.GetAllPaymentsAsync();
     }
 
-    public Payment GetPayment(int id)
+    public Payment GetPaymentByIdAsync(int id)
     {
-        return _paymentRepository.GetPayment(id);
+        return _paymentRepository.GetPaymentByIdAsync(id);
     }
 
-    public async Task PostPayment(Payment userPayment)
+    public async Task AddPaymentAsync(Payment userPayment)
     {
-        await _paymentRepository.PostPayment(userPayment);
+        await _paymentRepository.AddPaymentAsync(userPayment);
     }
 
-    public async Task PutPayment(int id, Payment editPayment)
+    public async Task UpdatePaymentAsync(int id, Payment editPayment)
     {
-        await _paymentRepository.PutPayment(id, editPayment);
+        await _paymentRepository.UpdatePaymentAsync(id, editPayment);
     }
 
-    public async Task DeletePayment(int id)
+    public async Task DeletePaymentAsync(int id)
     {
-        await _paymentRepository.DeletePayment(id);
+        await _paymentRepository.DeletePaymentAsync(id);
     }
 }
 

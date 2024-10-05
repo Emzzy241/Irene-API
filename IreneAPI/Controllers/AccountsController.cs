@@ -11,14 +11,14 @@ namespace IreneAPI.Controllers;
 // [Authorize]
 [ApiController]
 [Route("api/[controller]")]
-public class AuthController : ControllerBase
+public class AccountsController : ControllerBase
 {
     private readonly TokenService _tokenService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public AuthController(TokenService tokenService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager)
+    public AccountsController(TokenService tokenService, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager)
     {
         _tokenService = tokenService;
         _userManager = userManager;

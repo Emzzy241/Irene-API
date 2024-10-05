@@ -18,12 +18,12 @@ public class PaymentRepository : IPaymentRepository
         _context = context;
     }
 
-    public async Task<List<Payment>> GetAllPayments()
+    public async Task<List<Payment>> GetAllPaymentsAsync()
     {
         return await _context.Payments.ToListAsync();
     }
 
-    public Payment GetPayment(int id)
+    public Payment GetPaymentByIdAsync(int id)
     {
         // var payment = await _context.Payments.FindAsync(id);
 
@@ -36,13 +36,13 @@ public class PaymentRepository : IPaymentRepository
         return _context.Payments.Find(id);
     }
 
-    public async Task PostPayment(Payment userPayment)
+    public async Task AddPaymentAsync(Payment userPayment)
     {
         _context.Payments.Add(userPayment);
         await _context.SaveChangesAsync();
     }
 
-    public async Task PutPayment(int id, Payment editPayment)
+    public async Task UpdatePaymentAsync(int id, Payment editPayment)
     {
         var existingPayment = await _context.Payments.FindAsync(id);
         if(existingPayment == null)
@@ -56,7 +56,7 @@ public class PaymentRepository : IPaymentRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeletePayment(int id)
+    public async Task DeletePaymentAsync(int id)
     {
         var payment = await _context.Payments.FindAsync(id);
         if(payment == null)

@@ -23,38 +23,38 @@ public class PaymentsController : ControllerBase, IPaymentService
     
     [Authorize(Roles = "User")]
     [HttpGet]
-    public async Task<List<Payment>> GetPayments()
+    public async Task<List<Payment>> GetAllPaymentsAsync()
     {
-        return await _paymentService.GetPayments();
+        return await _paymentService.GetAllPaymentsAsync();
     }
 
     [Authorize(Roles = "User")]
     [HttpGet("{id}")]
-    public Payment GetPayment(int id)
+    public Payment GetPaymentByIdAsync(int id)
     {
-        return _paymentService.GetPayment(id);
+        return _paymentService.GetPaymentByIdAsync(id);
         
     }
 
     [Authorize(Roles = "Merchant, Admin, Developer")]
     [HttpPost]
-    public async Task PostPayment(Payment newPayment)
+    public async Task AddPaymentAsync(Payment newPayment)
     {
-        await _paymentService.PostPayment(newPayment);
+        await _paymentService.AddPaymentAsync(newPayment);
     }
 
     [Authorize(Roles = "Admin, Developer, Merchant")]
     [HttpPut("{id}")]
-    public async Task PutPayment(int id, [FromBody] Payment newPayment)
+    public async Task UpdatePaymentAsync(int id, [FromBody] Payment newPayment)
     {
-        await _paymentService.PutPayment(id, newPayment);
+        await _paymentService.UpdatePaymentAsync(id, newPayment);
     }
 
     [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
-    public async Task DeletePayment(int id)
+    public async Task DeletePaymentAsync(int id)
     {
-        await _paymentService.DeletePayment(id);
+        await _paymentService.DeletePaymentAsync(id);
     }
 
     // POST /api/payments/process - For processing a payment: This now uses the route POST /api/payments/process. This ensures there’s no conflict with PostPayment.
