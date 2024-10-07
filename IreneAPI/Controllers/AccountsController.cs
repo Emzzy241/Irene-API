@@ -1,3 +1,5 @@
+// Presentation Layer (Controller): Handles HTTP requests, input validation, and returns responses. This layer should be lightweight and free of business logic.
+
 using IreneAPI.Services;
 using IreneAPI.DTOs;
 using IreneAPI.Helpers;

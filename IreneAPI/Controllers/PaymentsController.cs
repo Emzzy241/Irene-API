@@ -30,7 +30,7 @@ public class PaymentsController : ControllerBase, IPaymentService
 
     [Authorize(Roles = "User")]
     [HttpGet("{id}")]
-    public Payment GetPaymentByIdAsync(int id)
+    public Task<Payment> GetPaymentByIdAsync(int id)
     {
         return _paymentService.GetPaymentByIdAsync(id);
         
@@ -38,9 +38,9 @@ public class PaymentsController : ControllerBase, IPaymentService
 
     [Authorize(Roles = "Merchant, Admin, Developer")]
     [HttpPost]
-    public async Task AddPaymentAsync(Payment newPayment)
+    public async Task CreatePaymentAsync(Payment newPayment)
     {
-        await _paymentService.AddPaymentAsync(newPayment);
+        await _paymentService.CreatePaymentAsync(newPayment);
     }
 
     [Authorize(Roles = "Admin, Developer, Merchant")]
