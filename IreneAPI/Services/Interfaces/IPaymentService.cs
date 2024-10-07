@@ -1,3 +1,4 @@
+using IreneAPI.DTOs;
 using IreneAPI.Services;
 using IreneAPI.Models;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ public interface IPaymentService
 {
     Task<List<Payment>> GetAllPaymentsAsync();
     Task<Payment> GetPaymentByIdAsync(int id);
-    Task CreatePaymentAsync(Payment userPayment);
-    Task UpdatePaymentAsync(int id, Payment editPayment);
+    Task CreatePaymentAsync(PaymentDto userPaymentDto);
+    Task UpdatePaymentAsync(int id, PaymentDto editPaymentDto);
     Task DeletePaymentAsync(int id);
 }

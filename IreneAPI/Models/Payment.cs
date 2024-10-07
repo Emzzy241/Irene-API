@@ -16,6 +16,10 @@ public class Payment
     
     [Required]
     public double Amount { get; set; }
+
+    public string AmountInWords { get; set; }
+    
+    
     
         
 }

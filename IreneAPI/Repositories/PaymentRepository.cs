@@ -1,5 +1,6 @@
 // Data Access Layer (Repository): Handles interaction with the database or other persistence mechanisms. This layer should be responsible for reading from and writing to the database.
 
+using IreneAPI.DTOs;
 using IreneAPI.Repositories;
 using IreneAPI.Services;
 using IreneAPI.Models;

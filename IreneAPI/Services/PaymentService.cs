@@ -1,6 +1,8 @@
 // Business Logic Layer (Service): Contains the business rules, computations, and transformations. It coordinates the logic of how things should work and communicates with the repository layer.
 
 
+using IreneAPI.DTOs;
+using IreneAPI.Errors;
 using IreneAPI.Services;
 using IreneAPI.Repositories;
 using IreneAPI.Models;
@@ -28,29 +30,37 @@ public class PaymentService : IPaymentService
 
         if(payment == null)
         {
-            throw new Exception("Payment Details not found");
+            throw new PaymentNotFoundException("Payment Details not found.");
         }
 
         return payment;
     }
 
-    public async Task CreatePaymentAsync(Payment userPayment)
+     public async Task CreatePaymentAsync(PaymentDto userPaymentDto)
     {
-        await _paymentRepository.CreatePaymentAsync(userPayment);
+        var payment = new Payment
+        {
+            FirstName = userPaymentDto.FirstName,
+            LastName = userPaymentDto.LastName,
+            Amount = userPaymentDto.Amount,
+            // AmountInWords = NumberToWords((int)userPaymentDto.Amount)
+        };
+
+        await _paymentRepository.CreatePaymentAsync(payment);
     }
 
-    public async Task UpdatePaymentAsync(int id, Payment editPayment)
+    public async Task UpdatePaymentAsync(int id, PaymentDto editPaymentDto)
     {
         // Adding the logic for updating a payment
         var existingPayment = await _paymentRepository.GetPaymentByIdAsync(id);
         if(existingPayment == null)
         {
-            throw new Exception("Payment details not found");
+            throw new PaymentNotFoundException("Payment details not found.");
         }
-        existingPayment.FirstName = editPayment.FirstName;
-        existingPayment.LastName = editPayment.LastName;
-        existingPayment.Amount = editPayment.Amount;
-
+        existingPayment.FirstName = editPaymentDto.FirstName;
+        existingPayment.LastName = editPaymentDto.LastName;
+        existingPayment.Amount = editPaymentDto.Amount;
+        Payment editPayment = (Payment)editPaymentDto;
         await _paymentRepository.UpdatePaymentAsync(id, editPayment);
     }
 
@@ -60,7 +70,7 @@ public class PaymentService : IPaymentService
         var payment = await _paymentRepository.GetPaymentByIdAsync(id);
         if(payment == null)
         {
-            throw new Exception("Payment Details you want to delete cannot be found in the database");
+            throw new PaymentNotFoundException("Payment details not found.");
         }
 
         // After adding the logic on how a Payment is deleted, then we call on the Repository top actually delete such Payment

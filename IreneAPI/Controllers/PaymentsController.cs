@@ -40,16 +40,16 @@ public class PaymentsController : ControllerBase, IPaymentService
 
     [Authorize(Roles = "Merchant, Admin, Developer")]
     [HttpPost]
-    public async Task CreatePaymentAsync(Payment newPayment)
+    public async Task CreatePaymentAsync(PaymentDto newPaymentDto)
     {
-        await _paymentService.CreatePaymentAsync(newPayment);
+        await _paymentService.CreatePaymentAsync(newPaymentDto);
     }
 
     [Authorize(Roles = "Admin, Developer, Merchant")]
     [HttpPut("{id}")]
-    public async Task UpdatePaymentAsync(int id, [FromBody] Payment newPayment)
+    public async Task UpdatePaymentAsync(int id, [FromBody] PaymentDto editPaymentDto)
     {
-        await _paymentService.UpdatePaymentAsync(id, newPayment);
+        await _paymentService.UpdatePaymentAsync(id, editPaymentDto);
     }
 
     // The line below is a .NET attribute to create a URI
