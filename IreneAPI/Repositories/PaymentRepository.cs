@@ -48,9 +48,9 @@ public class PaymentRepository : IPaymentRepository
 
     public async Task DeletePaymentAsync(int id)
     {
-        var payment = _context.Payments.FindAsync(id);
+        var payment = await _context.Payments.FindAsync(id);
 
-        _context.Remove(payment);
+        _context.Payments.Remove(payment);
         await _context.SaveChangesAsync();
     }
 
