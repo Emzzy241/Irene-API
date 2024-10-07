@@ -49,6 +49,7 @@ public class PaymentService : IPaymentService
         await _paymentRepository.CreatePaymentAsync(payment);
     }
 
+    // This way, you decouple the internal workings of your database (entities) from what the API returns or accepts (DTOs). Which gives you flexibility if the database structure changes but you want to keep the same API contract.
     public async Task UpdatePaymentAsync(int id, PaymentDto editPaymentDto)
     {
         // Adding the logic for updating a payment
@@ -60,8 +61,8 @@ public class PaymentService : IPaymentService
         existingPayment.FirstName = editPaymentDto.FirstName;
         existingPayment.LastName = editPaymentDto.LastName;
         existingPayment.Amount = editPaymentDto.Amount;
-        Payment editPayment = (Payment)editPaymentDto;
-        await _paymentRepository.UpdatePaymentAsync(id, editPayment);
+        
+        await _paymentRepository.UpdatePaymentAsync(id, existingPayment);
     }
 
     public async Task DeletePaymentAsync(int id)
