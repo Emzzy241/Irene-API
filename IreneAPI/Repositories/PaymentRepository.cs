@@ -48,7 +48,7 @@ public class PaymentRepository : IPaymentRepository
 
     public async Task DeletePaymentAsync(int id)
     {
-        var payment = await _context.Payments.FindAsync(id);
+        var payment = await _context.Payments.FindAsync(id); // Added await to fix 500 status bug on Get Enpoint
 
         _context.Payments.Remove(payment);
         await _context.SaveChangesAsync();
