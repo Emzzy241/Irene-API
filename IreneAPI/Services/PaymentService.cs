@@ -88,42 +88,48 @@ public class PaymentService : IPaymentService
         return "zero";
     if (number < 0)
         return "minus " + ConvertAmountToWordsAsync(Math.Abs(number)); // our method only works with int, hence the moment we take in a decimal number(e.g: 980262.28), we turn it into its absolute value which is: 980262
-        Console.WriteLine("------------------------------------------------- " + ConvertAmountToWordsAsync(Math.Abs(number)));
+        // Console.WriteLine("------------------------------------------------- " + ConvertAmountToWordsAsync(Math.Abs(number)));
     string words = "";
     if ((number / 1000000) > 0)
     {
+        // If we divide by 1million, and answer is > 0, we know that the value inputted is in millions
     words += ConvertAmountToWordsAsync(number / 1000000) + " million ";
-    number %= 1000000;
+    number %= 1000000; // now we set number's value to the remainder we get when the inputted value is divided by 100000(100k)
+        // We already updated number's value above
     }
     if ((number / 1000) > 0)
     {
-    words += ConvertAmountToWordsAsync(number / 1000) + " thousand ";
+    words += ConvertAmountToWordsAsync(number / 1000) + " thousand "; //this point value would be 
     number %= 1000;
     }
     if ((number / 100) > 0)
     {
     words += ConvertAmountToWordsAsync(number / 100) + " hundred ";
-    number %= 100;
+    number %= 100; // number gets updated again
     }
     if (number > 0)
     {
-    if (words != "")
-    words += "and ";
-    var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-    var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
-    if (number < 20)
-    words += unitsMap[number];
-    else
-    {
-    words += tensMap[number / 10];
-    if ((number % 10) > 0)
-    words += "-" + unitsMap[number % 10];
-    }
+        // This aspect checks if we still have figures in tens and units
+        if (words != "")
+        words += "and ";
+        var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+        var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+        if (number < 20)
+        // if less than 20, use the unitsMap, else if number is greater than 20, use the tens map
+        words += unitsMap[number];
+        else
+        {
+        words += tensMap[number / 10];
+        if ((number % 10) > 0)
+        // If we divide the number by 10, and remainder gotten is > 0, we use - to join the two numbers together and get their value
+        words += "-" + unitsMap[number % 10];
+        }
     }
     return words;
     }
 /**/
 /*
+    // Figure out reasons why method doesn't work, it creates no build errors at all but it gives a 500 whenever we CreatePayment()
     // Implementing the ConvertAmountToWordsAsync()
     public string ConvertAmountToWordsAsync(double amount)
     {
