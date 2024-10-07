@@ -53,6 +53,12 @@ public class PaymentRepository : IPaymentRepository
         await _context.SaveChangesAsync();
     }
 
+    // Implementing the ProcessPaymentAsync() Later on
+    // public async Task<IActionResult> ProcessPaymentAsync(Payment payment)
+    // {
+    //     return 
+    // }
+
     /* Data Access Layer is the same as Repository Layer in a 3-tier architecture
        Repository Layer: Implement the Repository pattern to handle database access, isolating data logic and making it reusable.
         IPaymentRepository and PaymentRepository to handle all database operations; It is here we made use of the database context that helps in managing our database access
