@@ -1,10 +1,12 @@
-using  Microsoft.AspNetCore.Mvc;
 using IreneAPI.Services;
 using IreneAPI.Models;
 using IreneAPI.Data;
+using IreneAPI.DTOs;
 using IreneAPI.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace IreneAPI.Controllers;
 
@@ -30,26 +32,27 @@ public class PaymentsController : ControllerBase, IPaymentService
 
     [Authorize(Roles = "User")]
     [HttpGet("{id}")]
-    public Payment GetPaymentByIdAsync(int id)
+    public async Task<Payment> GetPaymentByIdAsync(int id)
     {
-        return _paymentService.GetPaymentByIdAsync(id);
+        return await _paymentService.GetPaymentByIdAsync(id);
         
     }
 
     [Authorize(Roles = "Merchant, Admin, Developer")]
     [HttpPost]
-    public async Task AddPaymentAsync(Payment newPayment)
+    public async Task CreatePaymentAsync(PaymentDto newPaymentDto)
     {
-        await _paymentService.AddPaymentAsync(newPayment);
+        await _paymentService.CreatePaymentAsync(newPaymentDto);
     }
 
     [Authorize(Roles = "Admin, Developer, Merchant")]
     [HttpPut("{id}")]
-    public async Task UpdatePaymentAsync(int id, [FromBody] Payment newPayment)
+    public async Task UpdatePaymentAsync(int id, [FromBody] PaymentDto editPaymentDto)
     {
-        await _paymentService.UpdatePaymentAsync(id, newPayment);
+        await _paymentService.UpdatePaymentAsync(id, editPaymentDto);
     }
 
+    // The line below is a .NET attribute to create a URI
     [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task DeletePaymentAsync(int id)
@@ -57,11 +60,10 @@ public class PaymentsController : ControllerBase, IPaymentService
         await _paymentService.DeletePaymentAsync(id);
     }
 
-    // POST /api/payments/process - For processing a payment: This now uses the route POST /api/payments/process. This ensures there’s no conflict with PostPayment.
-    
-    // The line below is a .NET attribute to create a URI
+    // POST /api/payments/process - For processing a payment: This now uses the URI POST /api/payments/process. This ensures there’s no conflict with PostPayment.
+    // This is just a demo, the actual ProcessPayment ha snot yet been implemented
     [HttpPost("process")]
-    public IActionResult ProcessPayment([FromBody] PaymentRequest payment)
+    public IActionResult ProcessPaymentAsync([FromBody] PaymentRequest payment)
     {
         // Payment Processing logic
         return Ok("Payment processed successfully");
@@ -69,10 +71,3 @@ public class PaymentsController : ControllerBase, IPaymentService
 }
 
 // Controllers should only handle HTTP requests, calling services for the business logic
-
-
-public class PaymentRequest
-{
-    public decimal Amount { get; set; }
-    public string Currency { get; set; }
-}

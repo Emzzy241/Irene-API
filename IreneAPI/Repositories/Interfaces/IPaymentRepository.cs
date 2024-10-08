@@ -1,7 +1,9 @@
-using System;
+using IreneAPI.DTOs;
 using IreneAPI.Repositories;
 using IreneAPI.Services;
 using IreneAPI.Models;
+using System;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace IreneAPI.Repositories;
@@ -9,8 +11,8 @@ namespace IreneAPI.Repositories;
 public interface IPaymentRepository
 {
     Task<List<Payment>> GetAllPaymentsAsync();
-    Payment GetPaymentByIdAsync(int id);
-    Task AddPaymentAsync(Payment userPayment);
-    Task UpdatePaymentAsync(int id,Payment editPayment);
+    Task<Payment> GetPaymentByIdAsync(int id);
+    Task CreatePaymentAsync(Payment userPayment);
+    Task UpdatePaymentAsync(int id, Payment editPayment);
     Task DeletePaymentAsync(int id);
 }

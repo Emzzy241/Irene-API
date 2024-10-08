@@ -1,3 +1,6 @@
+// Data Access Layer (Repository): Handles interaction with the database or other persistence mechanisms. This layer should be responsible for reading from and writing to the database.
+
+using IreneAPI.DTOs;
 using IreneAPI.Repositories;
 using IreneAPI.Services;
 using IreneAPI.Models;
@@ -5,6 +8,7 @@ using IreneAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace IreneAPI.Repositories;
@@ -23,20 +27,14 @@ public class PaymentRepository : IPaymentRepository
         return await _context.Payments.ToListAsync();
     }
 
-    public Payment GetPaymentByIdAsync(int id)
-    {
-        // var payment = await _context.Payments.FindAsync(id);
-
-        // if(payment == null)
-        // {
-        //     return throw new Exception("Payment Details you want to get cannnot be found in the Database");
-        // }
-        // return await _context.Payments.FindAsync(id);
-    
-        return _context.Payments.Find(id);
+    //Keeping the async pattern consistent to avoid blocking threads unnecessarily, especially with database access
+    public async Task<Payment> GetPaymentByIdAsync(int id)
+    {    
+        return await _context.Payments.FindAsync(id); // return null if not found
+        // It's good practice to handle exceptions in the Service Layer rather than the Repository. The repository should focus on database operations and not on throwing domain-specific exceptions.
     }
 
-    public async Task AddPaymentAsync(Payment userPayment)
+    public async Task CreatePaymentAsync(Payment userPayment)
     {
         _context.Payments.Add(userPayment);
         await _context.SaveChangesAsync();
@@ -44,29 +42,23 @@ public class PaymentRepository : IPaymentRepository
 
     public async Task UpdatePaymentAsync(int id, Payment editPayment)
     {
-        var existingPayment = await _context.Payments.FindAsync(id);
-        if(existingPayment == null)
-        {
-            throw new Exception("Payment Details you want to edit cannot be found in the database");
-        }
-        existingPayment.FirstName = editPayment.FirstName;
-        existingPayment.LastName = editPayment.LastName;
-        existingPayment.Amount = editPayment.Amount;
-
+        
         await _context.SaveChangesAsync();
     }
 
     public async Task DeletePaymentAsync(int id)
     {
-        var payment = await _context.Payments.FindAsync(id);
-        if(payment == null)
-        {
-            throw new Exception("Payment Details you want to delete cannot be found in the database");
-        }
+        var payment = await _context.Payments.FindAsync(id); // Added await to fix 500 status bug on Get Enpoint
 
-        _context.Remove(payment);
+        _context.Payments.Remove(payment);
         await _context.SaveChangesAsync();
     }
+
+    // Implementing the ProcessPaymentAsync() Later on
+    // public async Task<IActionResult> ProcessPaymentAsync(Payment payment)
+    // {
+    //     return 
+    // }
 
     /* Data Access Layer is the same as Repository Layer in a 3-tier architecture
        Repository Layer: Implement the Repository pattern to handle database access, isolating data logic and making it reusable.

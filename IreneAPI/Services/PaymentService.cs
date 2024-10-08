@@ -1,7 +1,13 @@
+// Business Logic Layer (Service): Contains the business rules, computations, and transformations. It coordinates the logic of how things should work and communicates with the repository layer.
+
+
+using IreneAPI.DTOs;
+using IreneAPI.Errors;
 using IreneAPI.Services;
 using IreneAPI.Repositories;
 using IreneAPI.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IreneAPI.Services;
 public class PaymentService : IPaymentService
@@ -18,23 +24,57 @@ public class PaymentService : IPaymentService
         return _paymentRepository.GetAllPaymentsAsync();
     }
 
-    public Payment GetPaymentByIdAsync(int id)
+    public async Task<Payment> GetPaymentByIdAsync(int id)
     {
-        return _paymentRepository.GetPaymentByIdAsync(id);
+        var payment = await _paymentRepository.GetPaymentByIdAsync(id);
+
+        if(payment == null)
+        {
+            throw new PaymentNotFoundException("Payment Details not found.");
+        }
+
+        return payment;
     }
 
-    public async Task AddPaymentAsync(Payment userPayment)
+     public async Task CreatePaymentAsync(PaymentDto userPaymentDto)
     {
-        await _paymentRepository.AddPaymentAsync(userPayment);
+        var payment = new Payment
+        {
+            FirstName = userPaymentDto.FirstName,
+            LastName = userPaymentDto.LastName,
+            Amount = userPaymentDto.Amount,
+            // AmountInWords = NumberToWords((int)userPaymentDto.Amount)
+        };
+
+        await _paymentRepository.CreatePaymentAsync(payment);
     }
 
-    public async Task UpdatePaymentAsync(int id, Payment editPayment)
+    // This way, you decouple the internal workings of your database (entities) from what the API returns or accepts (DTOs). Which gives you flexibility if the database structure changes but you want to keep the same API contract.
+    public async Task UpdatePaymentAsync(int id, PaymentDto editPaymentDto)
     {
-        await _paymentRepository.UpdatePaymentAsync(id, editPayment);
+        // Adding the logic for updating a payment
+        var existingPayment = await _paymentRepository.GetPaymentByIdAsync(id);
+        if(existingPayment == null)
+        {
+            throw new PaymentNotFoundException("Payment details not found.");
+        }
+        existingPayment.FirstName = editPaymentDto.FirstName;
+        existingPayment.LastName = editPaymentDto.LastName;
+        existingPayment.Amount = editPaymentDto.Amount;
+        
+        await _paymentRepository.UpdatePaymentAsync(id, existingPayment);
     }
 
     public async Task DeletePaymentAsync(int id)
     {
+        // Adding the logic for deleting a payment
+        var payment = await _paymentRepository.GetPaymentByIdAsync(id);
+        if(payment == null)
+        {
+            throw new PaymentNotFoundException("Payment details not found.");
+        }
+
+        // After adding the logic on how a Payment is deleted, then we call on the Repository top actually delete such Payment
         await _paymentRepository.DeletePaymentAsync(id);
     }
 }
