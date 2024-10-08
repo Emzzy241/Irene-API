@@ -22,7 +22,7 @@ public class PaymentsController : ControllerBase, IPaymentService
         _paymentService = paymentService;
     }
 
-    
+    // The URI is GET: api/payments
     [Authorize(Roles = "User")]
     [HttpGet]
     public async Task<List<Payment>> GetAllPaymentsAsync()
@@ -30,6 +30,7 @@ public class PaymentsController : ControllerBase, IPaymentService
         return await _paymentService.GetAllPaymentsAsync();
     }
 
+    // The URI is GET: api/payments/{id}
     [Authorize(Roles = "User")]
     [HttpGet("{id}")]
     public async Task<Payment> GetPaymentByIdAsync(int id)
@@ -37,7 +38,7 @@ public class PaymentsController : ControllerBase, IPaymentService
         return await _paymentService.GetPaymentByIdAsync(id);
         
     }
-
+    // POST: api/payments
     [Authorize(Roles = "Merchant, Admin, Developer")]
     [HttpPost]
     public async Task CreatePaymentAsync(PaymentDto newPaymentDto)
@@ -45,6 +46,7 @@ public class PaymentsController : ControllerBase, IPaymentService
         await _paymentService.CreatePaymentAsync(newPaymentDto);
     }
 
+    // PUT: api/payments/{id}
     [Authorize(Roles = "Admin, Developer, Merchant")]
     [HttpPut("{id}")]
     public async Task UpdatePaymentAsync(int id, [FromBody] PaymentDto editPaymentDto)
@@ -52,8 +54,9 @@ public class PaymentsController : ControllerBase, IPaymentService
         await _paymentService.UpdatePaymentAsync(id, editPaymentDto);
     }
 
-    // The line below is a .NET attribute to create a URI
+    // DELETE: api/payments/{id}
     [Authorize(Roles = "Admin")]
+    // The line below is a .NET attribute to create a URI
     [HttpDelete("{id}")]
     public async Task DeletePaymentAsync(int id)
     {
@@ -70,4 +73,4 @@ public class PaymentsController : ControllerBase, IPaymentService
     }
 }
 
-// Controllers should only handle HTTP requests, calling services for the business logic
+// Controllers should only handle HTTP requests, and calling services for the business logic
