@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using System.Threading.Tasks;
+// using System.ComponentModel.DataAnnotations;
 
 namespace IreneAPI.Controllers;
 
@@ -30,9 +31,21 @@ public class PaymentsController : ControllerBase, IPaymentService
         return await _paymentService.GetAllPaymentsAsync();
     }
 
-    // The URI is GET: api/payments/{id}
+    // GET: api/payments/{id}
+    // How to document an endpoint
+    /// <summary>
+    ///     Retrieves a specific payment by a unique id
+    /// </summary>
+    /// <remarks>API Endpoint</remarks>
+    /// <response code="200">Payment found</response>
+    /// <response code="400">Payment has invalid details</response>
+    /// <response code="500">Oops! Payment can not be gotten right now</response>
     [Authorize(Roles = "User")]
     [HttpGet("{id}")]
+    // I don't think the 3 lines below are Data annotations; Because we need the System.Computations.DataAnnotations namespace for that
+    [ProducesResponseType(typeof(Payment), 200)]
+    [ProducesResponseType(typeof(IDictionary<string, string>), 400)]
+    [ProducesResponseType(500)]
     public async Task<Payment> GetPaymentByIdAsync(int id)
     {
         return await _paymentService.GetPaymentByIdAsync(id);

@@ -77,7 +77,6 @@ IreneAPI is a secure, scalable, and fully functional payment gateway API designe
 4. IreneAPI is continually evolving, with a focus on providing developers with the tools they need to
 5. implement secure and efficient payment systems. Whether you're building an e-commerce platform or a subscription-based service, IreneAPI can power your transactions with minimal effort and maximum security.
 
-_This version highlights the technical aspects, security features, and future enhancements while making it clear how developers and businesses can benefit from integrating IreneAPI into their systems._
 
 ## Project Architecture
 
