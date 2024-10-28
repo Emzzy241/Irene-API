@@ -24,6 +24,13 @@ public class PaymentsController : ControllerBase, IPaymentService
     }
 
     // The URI is GET: api/payments
+    /// <summary>
+    ///     Retrieves all payments from database
+    /// </summary>
+    /// <remarks>API Endpoint</remarks>
+    /// <response code="200">All Payments found</response>
+    /// <response code="400">Payment has invalid details</response>
+    /// <response code="500">Oops! Payment can not be gotten right now</response>
     [Authorize(Roles = "User")]
     [HttpGet]
     public async Task<List<Payment>> GetAllPaymentsAsync()
@@ -51,6 +58,8 @@ public class PaymentsController : ControllerBase, IPaymentService
         return await _paymentService.GetPaymentByIdAsync(id);
         
     }
+
+    
     // POST: api/payments
     [Authorize(Roles = "Merchant, Admin, Developer")]
     [HttpPost]
