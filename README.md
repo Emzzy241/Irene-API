@@ -2,7 +2,7 @@
 
 ### A Robust Payment API
 
-### made by Emmanuel Mojiboye
+#### made by Emmanuel Mojiboye
 
 ## Technologies Used
 

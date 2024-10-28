@@ -5,5 +5,8 @@
         "Hackathon",
         "lastname",
         "Mojiboye"
+    ],
+    "conventionalCommits.scopes": [
+        "Enter"
     ]
 }
